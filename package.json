@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/robinhoc/12832/issues"
   },
-  "homepage": "https://github.com/robinhoc/12832#readme"
+  "homepage": "https://github.com/robinhoc/12832#readme",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
 }

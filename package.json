@@ -1,0 +1,19 @@
+{
+  "name": "12832",
+  "version": "1.0.0",
+  "description": "Teste",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinhoc/12832.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robinhoc/12832/issues"
+  },
+  "homepage": "https://github.com/robinhoc/12832#readme"
+}

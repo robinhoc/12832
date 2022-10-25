@@ -10,13 +10,15 @@ app.get('/produtos/:id?', (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
     let filter = '';
-    //if(req.params.id) filter = ' WHERE codigo=' + parseInt(req.params.id);  
+    if(req.params.id > 0){
+      filter = ' WHERE codigo = ' + parseInt(req.params.id);  
+    } 
 
-    console.log(req.params.id);
+    console.log(filter);
 
-    var SqlConsulta = 'select codigo, descricao, valfinal '+ 
-                      'from produtos '+ filter +
-                      'order by descricao ';
+    var SqlConsulta = ' select codigo, descricao, valfinal '+ 
+                      ' from produtos '+ filter +
+                      ' order by descricao ';
 
     execSQLQuery(SqlConsulta, res);
     /*res.json([{id: 1 , 

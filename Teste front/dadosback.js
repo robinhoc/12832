@@ -1,13 +1,13 @@
 let produtos = [];
 let request = async () => {
-    var id = $('#txtNome').val();
+    var id = $('#txtIdade').val();
 
     console.log(id)
 
     var Url = ''
 
     if(id > 0){
-        Url = 'http://localhost:3000/produtos'+id    
+        Url = 'http://localhost:3000/produtos/'+id    
     }else{
         Url = 'http://localhost:3000/produtos'
     }

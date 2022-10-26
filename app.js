@@ -2,26 +2,47 @@ const express = require('express')
 const app = express()
 
 app.use(express.static('public')); // habilitar arquivos da pasta para funcionar pelo servidor
-
+app.use(express.json()) // pegar o valor do body
 
 app.get('/', (req, res) => {
     res.send('Opa')
 })
 
-app.get('/categorias', (req, res) => {
-    res.send('Listar categorias')
+app.get('/produtos', (req, res) => {
+    console.log(req.query.nome +'-'+req.query.sobrenome)
+    res.send('Listar produtos')
 })
 
-app.post('/categorias', (req, res) => {
+app.get('/produtos/:codigo', (req, res) => {
+    var codFiltro = req.params.codigo;
+
+    res.send('Buscar produtos '+codFiltro)
+})
+
+app.post('/produtos', (req, res) => {
+    
+    let produto = {
+        codigo: req.body.codigo,
+        descricao: req.body.descricao
+    }
+    console.log(produto)
+
     res.status(201).send('Criar categoria')
 })
 
-app.put('/categorias', (req, res) => {
+app.put('/produtos', (req, res) => {
+    let produto = {
+        codigo: req.body.codigo,
+        descricao: req.body.descricao
+    }    
+    console.log(produto)
     res.send('Alterar categoria')
 })
 
-app.delete('/categorias', (req, res) => {
-    res.send('Excluir categoria')
+app.delete('/produtos/:codigo', (req, res) => {
+    var codDelete = req.params.codigo;
+
+    res.send('Excluir produto '+codDelete)    
 })
 
 

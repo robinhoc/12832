@@ -1,13 +1,21 @@
 const express = require('express')
-const app = express()
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger_output.json');
 
+const app = express()
 app.use(express.json())
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.get('/', (req, res) => {
+    //#swagger.tags = ['root']
     res.send('Pagina inicial de contatos.')
 })
 
 app.get('/contatos', (req, res) => {
+    //#swagger.tags = ['Contatos']
+    //#swagger.description = 'Buscar todos sem parametros ou passar parametros para filtrar'
+
     var Url = '';
     var FiltroId = '';
 
@@ -31,12 +39,17 @@ app.get('/contatos', (req, res) => {
 })
 
 app.get('/contatos/:idcontato', (req, res) => {
+    //#swagger.tags = ['Contatos']
+    //#swagger.description = 'Buscar por ID do contato'
+
     var FiltroId = req.params.idcontato;
 
     res.send('Buscando contato pelo ID: ' + FiltroId)
 })
 
 app.post('/contatos', (req, res) => {
+    //#swagger.tags = ['Contatos']
+    //#swagger.description = 'Cadastrar um contato'    
     
     let dadoscontato = {
         codigo: req.body.codigo,
@@ -50,6 +63,8 @@ app.post('/contatos', (req, res) => {
 })
 
 app.put('/contatos', (req, res) => {
+    //#swagger.tags = ['Contatos']
+    //#swagger.description = 'Atualizar um contato'       
     let dadoscontato = {
         codigo: req.body.codigo,
         nome: req.body.nome,
@@ -62,6 +77,8 @@ app.put('/contatos', (req, res) => {
 })
 
 app.delete('/contatos/:codigo', (req, res) => {
+    //#swagger.tags = ['Contatos']
+    //#swagger.description = 'Excluir um contato informando a ID'      
     var codDelete = req.params.codigo;
 
     res.send('Contato '+codDelete+' exlcuido com sucesso')    

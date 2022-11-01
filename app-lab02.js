@@ -13,7 +13,8 @@ var url = 'mongodb+srv://app:123@cluster0.i2yjs8v.mongodb.net/?retryWrites=true&
 
 const options = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 };
 
 mongoose.connect(url, options);

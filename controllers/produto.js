@@ -1,4 +1,5 @@
 //todo controle de das requisições ficam nesse arquivo
+var Produtos = require('../models/produto')
 
 exports.listar = (req, res) => { 
     //#swagger.tags = ['Produtos']
@@ -39,15 +40,24 @@ exports.gravar = (req, res) => {
     //#swagger.tags = ['Produtos']
     //#swagger.description = 'Cadastrar um contato'    
     
-    let dadoscontato = {
+    let dadosproduto = {
         codigo: req.body.codigo,
         nome: req.body.nome,
-        endereco: req.body.endereco,
-        telefone: req.body.telefone
+        desricao: req.body.desricao,
+        valor: req.body.valor
     }
-    console.log(dadoscontato)
+    console.log(dadosproduto)
 
-    res.status(201).send('Novo produto criado com sucesso.')    
+    Produtos.create(dadosproduto, (err, data) => {
+        if(err) {
+            console.log('Erro ao incluir '+ err)
+            res.status(501).send(err)
+        } else {
+            console.log(data)
+            res.status(201).send('Novo produto cadastrado com sucesso.') 
+        }
+    })
+       
 }
 
 exports.atualizar = (req, res) =>{

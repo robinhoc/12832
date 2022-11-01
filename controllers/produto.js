@@ -1,53 +1,40 @@
 //todo controle de das requisições ficam nesse arquivo
 var Produtos = require('../models/produto')
+var ProdutosM = require('../models/produtomysql')
 
 exports.listar = (req, res) => { 
     //#swagger.tags = ['Produtos']
-    //#swagger.description = 'Buscar todos sem parametros ou passar parametros para filtrar'
-
-    var Url = '';
-    var FiltroId = '';
-
-    if(req.query.idcontato != undefined){
-        FiltroId = 'id do produto: '+req.query.idcontato + ', ' 
-    }
-
-    if(req.query.nome != undefined){
-        FiltroId = FiltroId + 'nome: '+req.query.nome 
-    }    
-
-    console.log(FiltroId);
-
-    if(FiltroId != ''){
-        Url = 'Buscando produto pelos filtros: '+ FiltroId 
-    }else{
-        Url =  'Listando todos os produtos'
-    }
- 
-    res.send(Url)
+    //#swagger.description = 'Buscar todos sem parametros ou passar parametros para filtrar' 
+    ProdutosM.getTodosFiltro(req, res);
 }
 
 exports.listarporid = (req, res) =>{
     //#swagger.tags = ['Produtos']
     //#swagger.description = 'Buscar por ID do contato'
 
-    var FiltroId = req.params.idcontato;
-
-    res.send('Buscando produto pelo ID: ' + FiltroId)
+    ProdutosM.getIdProduto(req, res);
 }
 
-exports.gravar = (req, res) => {
+exports.gravar = async (req, res) => {
     //#swagger.tags = ['Produtos']
     //#swagger.description = 'Cadastrar um contato'    
     
-    let dadosproduto = {
+    /*let dadosproduto = {
         codigo: req.body.codigo,
         nome: req.body.nome,
         desricao: req.body.desricao,
         valor: req.body.valor
-    }
-    console.log(dadosproduto)
+    }*/
 
+    try {
+        await Produtos.create(req.body);
+        res.status(201).send('Novo produto cadastrado com sucesso.')         
+    } catch (error) {
+        res.status(500).send('Erro ao tentar incluir.')   
+    }
+    
+
+/*
     Produtos.create(dadosproduto, (err, data) => {
         if(err) {
             console.log('Erro ao incluir '+ err)
@@ -56,7 +43,7 @@ exports.gravar = (req, res) => {
             console.log(data)
             res.status(201).send('Novo produto cadastrado com sucesso.') 
         }
-    })
+    })*/
        
 }
 
@@ -74,10 +61,42 @@ exports.atualizar = (req, res) =>{
     res.status(201).send('produto '+ req.body.codigo +' atualizado com sucesso.')
 }
 
-exports.excluir = (req, res) => {
+exports.excluir = async (req, res) => {
     //#swagger.tags = ['Produtos']
     //#swagger.description = 'Excluir um contato informando a ID'      
-    var codDelete = req.params.codigo;
+    var codigo = req.params.codigo;
 
-    res.send('produto '+codDelete+' exlcuido com sucesso')       
+    try {
+        var produto = await Produtos.findOne({codigo})   
+        
+        produto.log(produto)
+
+        if(data === null) {
+            res.status(404).send('produto '+codigo+' não encontrado!')  
+            return
+        }   
+        
+        await Produtos.findByIdAndDelete({codigo})
+
+        res.send('produto '+codigo+' exlcuido com sucesso')
+    } catch (error) {
+        res.status(500).send('Erro ao tentar excluir.')    
+    }
+
+    /*
+    Produtos.findOne({codigo}, (err, data) =>{
+        if(data === null) {
+            res.status(404).send('produto '+codigo+' não encontrado!')  
+        }else{
+            Produtos.findByIdAndDelete({codigo}, (err, data) => {
+                if(err){
+                    console.log('Erro ao excluir '+ err)
+                    res.status(500).send(err)            
+                }else{
+                    console.log(data)
+                    res.status(201).send('produto '+codigo+' exlcuido com sucesso')             
+                }
+            })
+        }
+    })*/
 }

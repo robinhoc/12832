@@ -1,7 +1,6 @@
 const express = require('express') // cria o servidor web para receber requisições
 const swaggerUi = require('swagger-ui-express') // para documentação visual
 const mongoose = require('mongoose') //conexao ao banco de dados
-const mysql = require("mysql2") // conexao ao mysql
 
 var routeProduto = require('./routes/produto') // rota onde esta toda info dos produtos
 
@@ -23,21 +22,6 @@ mongoose.connection.on('connected', () => {
     console.log('Conectado ao mongodb!!!')
 })
 //fim dados para conexao ao banco
-
-//inicio para conexao com mysql
-const connectionmysql = mysql.createConnection({
-    host: "sistemasserver.ddns.me",
-    user: "bema",
-    password: "020491bmf",
-    database: "catdig_acougue"
-});
-
-connectionmysql.connect(function(err) {
-    if (err) throw err;
-    console.log("Conectao ao MySql!");
-  });
-//fim para conexao mysql
-
 const swaggerDocument = require('./swagger_output.json'); // local onde vai saltar a documentação
 
 app.use(express.static('public')) // libera essa pasta para acesso a arquivos

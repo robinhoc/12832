@@ -6,7 +6,7 @@ var router = express.Router();
 var controller = require('../controllers/produto')
 
 router.get('/', controller.listar)
-router.get('/:idcontato', controller.listarporid)
+router.get('/:id', controller.listarporid)
 router.post('/', controller.gravar)
 router.put('/', controller.atualizar)
 router.delete('/:codigo', controller.excluir)

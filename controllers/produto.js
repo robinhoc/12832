@@ -18,33 +18,13 @@ exports.listarporid = (req, res) =>{
 exports.gravar = async (req, res) => {
     //#swagger.tags = ['Produtos']
     //#swagger.description = 'Cadastrar um contato'    
-    
-    /*let dadosproduto = {
-        codigo: req.body.codigo,
-        nome: req.body.nome,
-        desricao: req.body.desricao,
-        valor: req.body.valor
-    }*/
 
     try {
         await Produtos.create(req.body);
         res.status(201).send('Novo produto cadastrado com sucesso.')         
     } catch (error) {
         res.status(500).send('Erro ao tentar incluir.')   
-    }
-    
-
-/*
-    Produtos.create(dadosproduto, (err, data) => {
-        if(err) {
-            console.log('Erro ao incluir '+ err)
-            res.status(501).send(err)
-        } else {
-            console.log(data)
-            res.status(201).send('Novo produto cadastrado com sucesso.') 
-        }
-    })*/
-       
+    }     
 }
 
 exports.atualizar = (req, res) =>{
@@ -82,21 +62,4 @@ exports.excluir = async (req, res) => {
     } catch (error) {
         res.status(500).send('Erro ao tentar excluir.')    
     }
-
-    /*
-    Produtos.findOne({codigo}, (err, data) =>{
-        if(data === null) {
-            res.status(404).send('produto '+codigo+' não encontrado!')  
-        }else{
-            Produtos.findByIdAndDelete({codigo}, (err, data) => {
-                if(err){
-                    console.log('Erro ao excluir '+ err)
-                    res.status(500).send(err)            
-                }else{
-                    console.log(data)
-                    res.status(201).send('produto '+codigo+' exlcuido com sucesso')             
-                }
-            })
-        }
-    })*/
 }

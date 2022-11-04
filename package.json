@@ -19,10 +19,11 @@
   "dependencies": {
     "express": "^4.18.2",
     "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.17",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "swagger-autogen": "^2.22.0",
-    "swagger-ui-express": "^4.5.0",
-    "mongoose": "^5.4.17"
+    "swagger-ui-express": "^4.5.0"
   }
 }

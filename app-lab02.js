@@ -42,6 +42,8 @@ app.get('/', (req, res) => { // cai na raiz do servidor
     res.send('Opa')
 })
 
-app.listen(3000, () => { // inciia o servidor web
-    console.log('Servidor web ok!')
-})
+app.listen(process.env.PORT || 3000);
+
+//app.listen(3000, () => { // inciia o servidor web
+//    console.log('Servidor web ok!')
+//})

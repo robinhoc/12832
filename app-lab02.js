@@ -4,6 +4,7 @@ const mongoose = require('mongoose') //conexao ao banco de dados
 
 var routeProduto = require('./routes/produto') // rota onde esta toda info dos produtos
 var routeUsuario = require('./routes/usuario')// rota onde esta toda info dos usuarios
+var middlewares = require('./middlewares/middlewares')
 
 const app = express()
 
@@ -28,8 +29,11 @@ const swaggerDocument = require('./swagger_output.json'); // local onde vai salt
 app.use(express.static('public')) // libera essa pasta para acesso a arquivos
 app.use(express.json()); //para converter a recepcao do Json
 
+app.use(middlewares.request);
+
 app.use('/documentacao', swaggerUi.serve, swaggerUi.setup(swaggerDocument)) // gera a documentação
 
+//app.use('/produtos', middlewares.autenticacao, routeProduto); // adiciona a rota dos produtos http://localhost:3000/produtos
 app.use('/produtos', routeProduto); // adiciona a rota dos produtos http://localhost:3000/produtos
 app.use('/usuarios', routeUsuario);// adiciona a rota dos usuarios http://localhost:3000/usuarios
 

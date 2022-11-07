@@ -49,10 +49,19 @@ function listarProdutos(bucaprodutos){
         var categoria = bucaprodutos[index].nomecategoria;
 
         tbody.innerHTML += '<tr><th>'+ descricao +'</th>'+
-        '<th>'+ valor +'</th>'+
         '<th>'+ categoria +'</th>'+
         '<th>'+ un +'</th>'+
-        '<th><button id="btnEditar" alt="'+ id +'" type="button" class="btn btn-warning btn-sm">Alterar</button>'+
-        '<button id="btnExcluir" alt="'+ id +'"  type="button" class="btn btn-danger btn-sm">Excluir</button> </th>  </tr>'
-    } 
+        '<th>'+ valor +'</th>'+
+        '<th><button id="btnEditar'+ id +'" alt="'+ id +'" type="button" class="btn btn-warning btn-sm">Alterar</button>'+
+        '<button id="btnExcluir" alt="'+ id +'"  type="button" class="btn btn-danger btn-sm">Excluir</button> </th>  </tr>';
+        
+        var NumBotao = '#btnEditar'+id;
+
+        $(NumBotao).click(function(){
+            $("#myModal").modal();
+            $('#edtdescricao').val(descricao);
+            $('#edtcategoria').val(categoria);
+            $('#edtpreco').val(valor);
+        });          
+    }    
 }

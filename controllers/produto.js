@@ -29,8 +29,13 @@ exports.gravar = async (req, res) => {
 
 exports.atualizar = (req, res) =>{
     //#swagger.tags = ['Produtos']
-    //#swagger.description = 'Atualizar um contato'       
-    let dadoscontato = {
+    //#swagger.description = 'Atualizar um contato' 
+    console.log('chegou no inicio da atualização')
+    res.setHeader("Access-Control-Allow-Origin", "*");  
+    
+    ProdutosM.updateProduto(req, res);
+    
+    /*let dadoscontato = {
         codigo: req.body.codigo,
         nome: req.body.nome,
         endereco: req.body.endereco,
@@ -38,7 +43,7 @@ exports.atualizar = (req, res) =>{
     }
     console.log(dadoscontato)
 
-    res.status(201).send('produto '+ req.body.codigo +' atualizado com sucesso.')
+    res.status(201).send('produto '+ req.body.codigo +' atualizado com sucesso.')*/
 }
 
 exports.excluir = async (req, res) => {

@@ -48,20 +48,53 @@ function listarProdutos(bucaprodutos){
         var id = bucaprodutos[index].CODIGO;
         var categoria = bucaprodutos[index].nomecategoria;
 
-        tbody.innerHTML += '<tr><th>'+ descricao +'</th>'+
+        tbody.innerHTML += '<tr data-descricao='+ descricao +' data-categoria='+ categoria +' data-valor='+ valor +'>'+
+        '<th>'+ descricao +'</th>'+
         '<th>'+ categoria +'</th>'+
         '<th>'+ un +'</th>'+
         '<th>'+ valor +'</th>'+
-        '<th><button id="btnEditar'+ id +'" alt="'+ id +'" type="button" class="btn btn-warning btn-sm">Alterar</button>'+
-        '<button id="btnExcluir" alt="'+ id +'"  type="button" class="btn btn-danger btn-sm">Excluir</button> </th>  </tr>';
-        
-        var NumBotao = '#btnEditar'+id;
+        '<th><button id="btnEditar" name="btnEditar" alt="'+ id +'" type="button" class="btn btn-warning btn-sm">Alterar</button>'+
+        '<button id="btnExcluir" alt="'+ id +'"  type="button" class="btn btn-danger btn-sm">Excluir</button> </th>  </tr>';      
+    }  
+    
+    $("button[name='btnEditar']").click(function(){
+        var descricao=$(this).parents('tr').attr('data-descricao');
+        var categoria=$(this).parents('tr').attr('data-categoria');
+        var valor=$(this).parents('tr').attr('data-valor');
 
-        $(NumBotao).click(function(){
-            $("#myModal").modal();
-            $('#edtdescricao').val(descricao);
-            $('#edtcategoria').val(categoria);
-            $('#edtpreco').val(valor);
-        });          
-    }    
+        $('#edtdescricao').val(descricao);
+        $('#edtcategoria').val(categoria);
+        $('#edtpreco').val(valor);
+        $('#idupdate').val(id);
+
+        $("#myModal").modal();
+    })     
+}
+
+function updateproduto(){
+    Url = 'http://localhost:3000/produtos';
+
+    var codigo = $('#idupdate').val();      
+    var valor = $('#edtpreco').val(); 
+
+    var data = {
+        codigo: codigo,
+        valor: valor
+    }
+
+    fetch(Url, {
+        method: 'PUT',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then(res => {
+            if (res.ok) { console.log("HTTP request successful") }
+            else { console.log("HTTP request unsuccessful") }
+            return res
+        })
+        .then(res => res.json())
+        .then(data => data)
+        .catch(error => error) 
 }

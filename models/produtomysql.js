@@ -53,3 +53,25 @@ exports.getIdProduto = (req, res, next) => {
         res.send('Id do produto deve ser informado.')
     }
 };   
+
+exports.updateProduto = (req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
+    
+    var idproduto = req.body.codigo;
+    var valor = req.body.valor;
+
+    var sql = 'update tbprodutos  '+
+              '  set PRECO = '+ valor +'  '+
+              '  where CODIGO = '+ idproduto +' ';
+
+    console.log(sql);  
+    
+    res.status(200).send('OK');
+
+    /*conn.query(sql, function (err, data, fields) {
+        if(err) return next(new AppError(err))
+        res.status(200).send('OK');
+    });    */           
+}
